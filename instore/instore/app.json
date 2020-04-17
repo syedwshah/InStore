@@ -11,7 +11,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/brandLogo.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -23,15 +23,6 @@
     ],
     "ios": {
       "supportsTablet": true
-    },
-    "facebookAppId": "2106762506298503",
-    "facebookScheme": "fb2106762506298503",
-    "facebookDisplayName": "InStore",
-    "extra":  {
-      "googleAppId": {
-        "ios": "600705987010-vf00f8aaauphb2a4od3l3fhkn5n3k86g.apps.googleusercontent.com",
-        "android": "600705987010-do5c3ovpl7mv57g7u752curbvhqvq2uc.apps.googleusercontent.com"
-      }
     }
   }
 }
