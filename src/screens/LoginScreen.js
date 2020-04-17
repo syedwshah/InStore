@@ -4,6 +4,10 @@ import { TouchableOpacity, Alert, Animated } from "react-native";
 
 import OnBoardingLogo from '../commons/OnboardingLogo';
 import LoginButton from '../commons/LoginButton';
+import { FacebookApi } from '../api/Facebook';
+import { GoogleApi } from '../api/Google';
+
+const BoxAnimated = Animated.createAnimatedComponent(Box);
 
 class LoginScreen extends Component {
     state = { 
@@ -31,12 +35,26 @@ class LoginScreen extends Component {
         }).start()
     }
 
-    onGooglePress = () => {
-        Alert.alert('Google Press');
+    onGooglePress = async () => {
+        try {
+            const token = await GoogleApi.loginAsync();
+
+            console.log("token", token);
+            
+        } catch (error) {
+            console.log('error', error);
+        }
     }
 
-    onFacebookPress = () => {
-        Alert.alert('Facebook Press');
+    onFacebookPress = async () => {
+        try {
+            const token = await FacebookApi.loginAsync();
+
+            console.log("token", token);
+            
+        } catch (error) {
+            console.log('error', error);
+        }
     }
 
     render() { 
@@ -49,8 +67,7 @@ class LoginScreen extends Component {
 
         return ( 
             <Box f={1} center bg="white">
-                <Animated.View style={{ 
-                    flex: 1,
+                <BoxAnimated f={1} style={{ 
                     transform: [
                         {
                             translateY: logoTranslate,
@@ -60,12 +77,12 @@ class LoginScreen extends Component {
                     <Box f={1} center>
                         <OnBoardingLogo />
                     </Box>
-                </Animated.View>
+                </BoxAnimated>
 
-                <Animated.View style={{ flex:.9, width: '100%', opacity }}>
+                <BoxAnimated f={0.9} w="100%" style={{ opacity }}>
                     <LoginButton onPress={this.onGooglePress} children="Contine with Google" type="google"/>
                     <LoginButton onPress={this.onFacebookPress} children="Contine with Facebook" type="facebook"/>
-                </Animated.View>
+                </BoxAnimated>
             </Box>
          )
     }
