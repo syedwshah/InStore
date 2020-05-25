@@ -3,7 +3,6 @@ import { Box, Text } from "react-native-design-utility";
 import { Image } from "react-native";
 
 import { images } from "../constants/images";
-import { render } from 'react-dom';
 
 const OnBoardingLogo = () => (
     <Box center>
