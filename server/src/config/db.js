@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 
 import { DB_URL } from "../constants";
 
-mongoose.Promise = global.Promise;
+//deprecated for Mongoose 5
+// mongoose.Promise = global.Promise;
 
 mongoose.set("debug", true);
 
