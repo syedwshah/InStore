@@ -9,8 +9,9 @@ const CustomerSchema = new Schema(
 		email: {
 			type: String,
 			required: true,
+			unique: true,
 		},
-		avararURL: String,
+		avatarUrl: String,
 		provider: [
 			{
 				uid: { required: true, type: String },
@@ -20,5 +21,7 @@ const CustomerSchema = new Schema(
 	},
 	{ timestamps: true }
 );
+
+CustomerSchema.index({ email: 1 });
 
 export default mongoose.model("Customer", CustomerSchema);
