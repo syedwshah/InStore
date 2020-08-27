@@ -22,6 +22,7 @@ const verifyToken = (token) => {
 	return jwt.verify(token, JWT_SECRET, JWT_OPTS);
 };
 
+//Get the token from the request header and verify legitimacy by returning a "decoded token token"
 const getTokenFromHeaders = (req) => {
 	const token = req.headers.authorization;
 
