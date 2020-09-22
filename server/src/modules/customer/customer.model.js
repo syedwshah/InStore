@@ -22,6 +22,7 @@ const CustomerSchema = new Schema(
 	{ timestamps: true }
 );
 
-CustomerSchema.index({ email: 1 });
+//In customer.js getOrCreateCustomer() will need to request email information
+CustomerSchema.index({ email: 1 }); //Intended for performance. Refer to docs.
 
 export default mongoose.model("Customer", CustomerSchema);

@@ -18,6 +18,7 @@ export const create = async (req, res) => {
 
 		let data;
 
+		//Request user data via API calls to respective provider
 		if (provider === "FACEBOOK") {
 			data = await AuthProvider.Facebook.authAsync(token);
 			console.log(data);

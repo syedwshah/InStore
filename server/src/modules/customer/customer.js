@@ -26,11 +26,10 @@ export const customerAuth = async (req, res, next) => {
 
 export const getOrCreateCustomer = async (info, providerName) => {
 	const customerInfo = buildCustomerInfo(info, providerName);
+	const { provider, ...userInfo } = customerInfo;
 
 	try {
 		const _customer = await Customer.findOne({ email: customerInfo.email });
-
-		const { provider, ...userInfo } = customerInfo;
 
 		if (!_customer) {
 			const customer = await Customer.create({
@@ -41,6 +40,7 @@ export const getOrCreateCustomer = async (info, providerName) => {
 			return customer;
 		}
 
+		//Determine provider data
 		const providerExist = _customer.provider.find(
 			(el) =>
 				el.uid === customerInfo.provider.uid &&
@@ -50,9 +50,10 @@ export const getOrCreateCustomer = async (info, providerName) => {
 		if (providerExist) {
 			return _customer;
 		}
-
+		// If this is a returning customer on a new provider, push new provider info
 		_customer.provider.push(customerInfo.provider);
 
+		//Update customer info
 		await _customer.save();
 
 		return _customer;
