@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Box, Text } from "react-native-design-utility";
 import { TouchableOpacity, Alert, Animated } from "react-native";
+import { inject } from "mobx-react/native";
 
 import OnBoardingLogo from "../commons/OnboardingLogo";
 import LoginButton from "../commons/LoginButton";
@@ -9,6 +10,8 @@ import { GoogleApi } from "../api/Google";
 
 const BoxAnimated = Animated.createAnimatedComponent(Box);
 
+//inject a prop
+@inject("currentUser")
 class LoginScreen extends Component {
 	state = {
 		opacity: new Animated.Value(0),
@@ -23,7 +26,8 @@ class LoginScreen extends Component {
 		Animated.timing(this.state.opacity, {
 			toValue: 1,
 			duration: 200,
-			delay: 300,
+			delay: 100,
+			useNativeDriver: true,
 		}).start();
 	};
 
@@ -39,7 +43,8 @@ class LoginScreen extends Component {
 		try {
 			const token = await GoogleApi.loginAsync();
 
-			console.log("token", token);
+			// console.log(this.props.currentUser);
+			await this.props.currentUser.login(token, "GOOGLE");
 		} catch (error) {
 			console.log("error", error);
 		}

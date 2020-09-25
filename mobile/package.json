@@ -17,10 +17,10 @@
 		"expo-facebook": "~8.1.0",
 		"expo-google-app-auth": "^8.1.0",
 		"global": "^4.4.0",
-		"mobx": "5.0.3",
+		"mobx": "4.3.2",
 		"mobx-react": "5.2.5",
 		"mobx-state-tree": "3.2.1",
-		"react": "~16.9.0",
+		"react": "^16.13.1",
 		"react-dom": "~16.9.0",
 		"react-native": "https://github.com/expo/react-native/archive/sdk-37.0.0.tar.gz",
 		"react-native-debugger-open": "^0.3.25",
@@ -30,7 +30,9 @@
 		"wretch": "1.4.1"
 	},
 	"devDependencies": {
+		"react-devtools": "^4.8.2",
 		"@babel/core": "^7.8.6",
+		"babel-plugin-transform-decorators-legacy": "1.3.5",
 		"babel-preset-expo": "~8.1.0"
 	},
 	"private": true
