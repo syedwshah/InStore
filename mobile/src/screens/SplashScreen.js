@@ -1,28 +1,29 @@
-import React, { Component } from 'react';
-import { Box, Text} from 'react-native-design-utility';
+import React, { Component } from "react";
+import { Box, Text } from "react-native-design-utility";
+import { inject } from "mobx-react/native";
 
-import OnBoardingLogo from '../commons/OnboardingLogo';
+import OnBoardingLogo from "../commons/OnboardingLogo";
+import { NavigationService } from "../api/NavigationService";
 
+@inject("currentUser")
 class SplashScreen extends Component {
-    state = {  }
+	state = {};
 
-    componentDidMount() {
-        this.checkAuth()
-    }
+	componentDidMount() {
+		this.checkAuth();
+	}
 
-    checkAuth = () => {
-        setTimeout(() => {
-            this.props.navigation.navigate('Auth')
-        }, 1000)
-    }
+	checkAuth = async () => {
+		await this.props.currentUser.setupAuth();
+	};
 
-    render() { 
-        return ( 
-            <Box f={1} center>
-                <OnBoardingLogo />
-            </Box>
-         );
-    }
+	render() {
+		return (
+			<Box f={1} center>
+				<OnBoardingLogo />
+			</Box>
+		);
+	}
 }
- 
+
 export default SplashScreen;
