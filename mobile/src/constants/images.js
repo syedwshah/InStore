@@ -5,15 +5,15 @@ export const images = {
 
 export const tabBarIcons = {
 	active: {
-		Home: require("../../assets/all/tabIcon/HomeIconActive.png"),
-		List: require("../../assets/all/tabIcon/ListIconActive.png"),
-		Stores: require("../../assets/all/tabIcon/StoresIconActive.png"),
-		Order: require("../../assets/all/tabIcon/OrderIconActive.png"),
+		Home: require("../../assets/img/tabIcon/HomeIconActive.png"),
+		List: require("../../assets/img/tabIcon/ListIconActive.png"),
+		Stores: require("../../assets/img/tabIcon/StoresIconActive.png"),
+		Order: require("../../assets/img/tabIcon/OrderIconActive.png"),
 	},
 	inactive: {
-		Home: require("../../assets/all/tabIcon/HomeIconInactive.png"),
-		List: require("../../assets/all/tabIcon/ListIconInactive.png"),
-		Stores: require("../../assets/all/tabIcon/StoresIconInactive.png"),
-		Order: require("../../assets/all/tabIcon/OrderIconInactive.png"),
+		Home: require("../../assets/img/tabIcon/HomeIconInactive.png"),
+		List: require("../../assets/img/tabIcon/ListIconInactive.png"),
+		Stores: require("../../assets/img/tabIcon/StoresIconInactive.png"),
+		Order: require("../../assets/img/tabIcon/OrderIconInactive.png"),
 	},
 };
