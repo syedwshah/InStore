@@ -10,6 +10,7 @@ const color = {
 	greyLightest: "#eeeeee",
 
 	white: "#fff",
+	offWhite: "#fafafa",
 
 	redDarkest: "#b71c1c",
 	redDarker: "#c62828",
@@ -107,7 +108,7 @@ export const theme = {
 			shadowColor: color.black,
 			shadowOffset: {
 				width: 0,
-				height: -1,
+				height: 0,
 			},
 			shadowOpacity: 1,
 			shadowRadius: 1,
@@ -118,8 +119,8 @@ export const theme = {
 				width: 0,
 				height: 0,
 			},
-			shadowOpacity: 0.16,
-			shadowRadius: 4,
+			shadowOpacity: 0.6,
+			shadowRadius: 5,
 		},
 	],
 	borders: [

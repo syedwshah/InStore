@@ -64,7 +64,7 @@ class HomeScreen extends Component {
 					<DealCarousel />
 				</Box>
 
-				<Box f={1}>
+				<Box f={1} p={10}>
 					<FlatList
 						data={categories}
 						renderItem={this.renderItem}
