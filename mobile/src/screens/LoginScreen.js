@@ -11,7 +11,7 @@ import { GoogleApi } from "../api/Google";
 const BoxAnimated = Animated.createAnimatedComponent(Box);
 
 //inject a prop
-@inject("currentUser")
+@inject("authStore")
 class LoginScreen extends Component {
 	state = {
 		opacity: new Animated.Value(0),
@@ -43,18 +43,19 @@ class LoginScreen extends Component {
 		try {
 			const token = await GoogleApi.loginAsync();
 
-			// console.log(this.props.currentUser);
-			await this.props.currentUser.login(token, "GOOGLE");
+			await this.props.authStore.login(token, "GOOGLE");
 		} catch (error) {
 			console.log("error", error);
 		}
 	};
 
+
 	onFacebookPress = async () => {
 		try {
 			const token = await FacebookApi.loginAsync();
 
-			console.log("token", token);
+			// console.log("token", token);
+			await this.props.authStore.login(token, "FACEBOOK");
 		} catch (error) {
 			console.log("error", error);
 		}

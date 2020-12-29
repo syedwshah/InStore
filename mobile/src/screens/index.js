@@ -67,6 +67,9 @@ const TabNavigator = createBottomTabNavigator(
 const MainNavigator = createStackNavigator(
 	{
 		Tab: TabNavigator,
+		ShoppingCart: {
+			getScreen: () => require("./ShoppingCartScreen").default,
+		}
 	},
 	{
 		navigationOptions: {

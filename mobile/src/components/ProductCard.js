@@ -18,14 +18,14 @@ const BoxAnimated = Animated.createAnimatedComponent(Box);
 class ProductCard extends Component {
 	state = {
 		isHover: false,
-		quantity: 1,
+		quantity: 0,
 		cardOpacity: new Animated.Value(1),
 		quantityOpacity: new Animated.Value(0),
 	};
 
 	handlePlusPress = () => {
 		this.fadeIn();
-		this.setState({ isHover: true });
+		this.setState({ isHover: true, quantity: this.state.quantity + 1 });
 	};
 
 	handleIncrement = () => {
@@ -104,8 +104,8 @@ class ProductCard extends Component {
 								borderWidth: 1,
 							}}
 							center
-							bg={quantity > 1 ? "green" : "white"}>
-							{quantity > 1 ? (
+							bg={quantity > 0 ? "green" : "white"}>
+							{quantity > 0 ? (
 								<Text color='white' size='sm'>
 									{quantity}
 								</Text>

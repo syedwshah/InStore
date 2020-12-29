@@ -25,13 +25,14 @@ const verifyToken = (token) => {
 //Get the token from the request header and verify legitimacy by returning a "decoded token token"
 const getTokenFromHeaders = (req) => {
 	const token = req.headers.authorization;
+	//Sample of token from header: 'bearer saghighghliaeh32h4bth3ho49'
 
 	if (token) {
-		const arr = token.split(" ");
+		const arr = token.split(" "); 
 
 		if (arr[0] === "Bearer" && arr[1]) {
 			try {
-				return verifyToken(arr[1]);
+				return verifyToken(arr[1]); 
 			} catch (error) {
 				return null;
 			}

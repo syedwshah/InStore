@@ -3,9 +3,9 @@ import { Box, Text } from "react-native-design-utility";
 import { inject } from "mobx-react/native";
 
 import OnBoardingLogo from "../commons/OnboardingLogo";
-import { NavigationService } from "../api/NavigationService";
+// import { NavigationService } from "../api/NavigationService";
 
-@inject("currentUser")
+@inject("authStore")
 class SplashScreen extends Component {
 	state = {};
 
@@ -14,7 +14,7 @@ class SplashScreen extends Component {
 	}
 
 	checkAuth = async () => {
-		await this.props.currentUser.setupAuth();
+		await this.props.authStore.setupAuth();
 	};
 
 	render() {
