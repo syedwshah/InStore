@@ -1,39 +1,77 @@
-import { inject } from "mobx-react/native";
+import { inject, observer } from "mobx-react/native";
 import React, { Component } from "react";
-import { StatusBar } from "react-native";
+import { FlatList, StatusBar, TouchableOpacity } from "react-native";
 import { Box, Text } from "react-native-design-utility";
+import CartItem from "../components/CartItem";
+import { theme } from "../constants/theme";
 
 @inject('shoppingCartStore')
+@observer
 class ShoppingCartScreen extends Component {
 	static navigationOptions = {
 		title: 'My Cart'
 	}
 	state = {};
 
-	renderList = () => {
-		const { products } = this.props.shoppingCartStore;
+	renderItem = ({ item }) => <CartItem product={item} />
 
-		if (products.length === 0) {
+	keyExtractor = item => String(item.id);
+
+	renderList = () => {
+		const { shoppingCartStore } = this.props;
+
+		if (shoppingCartStore.totalProducts === 0) {
 			return (
-				<Box>
+				<Box center f={1}>
 					<Text>Cart Empty</Text>
 				</Box>
 			)
 		}
 
-		return products.map(product => (
-			<Box key={product.id} dir="row" align="center">
-				<Text mr="sm">{product.name}</Text>
-				<Text>Quantity: {product.cartQuantity}</Text>
+		//FlatList components requires an Array, MobX provides us with an ObservableArray
+		// console.log('products', shoppingCartStore.products);
+		// console.log('productList', shoppingCartStore.productsList)
+
+		return <FlatList 
+			data={shoppingCartStore.productsList} //shoppingCartStore.productsList returns an Array
+			renderItem={this.renderItem}
+			keyExtractor={this.keyExtractor} 
+			extraData={shoppingCartStore} 
+		/>
+	}
+
+	renderCheckoutBtn = () => {
+		const { shoppingCartStore } = this.props;
+
+		if (shoppingCartStore.totalProducts === 0) {
+			return null;
+		}
+
+		return (
+			<Box bg="white" p="xs">
+				<TouchableOpacity>
+					<Box h={45} bg="grey" center radius={6} position="relative">
+						<Text bold color="white">
+							Checkout
+						</Text>
+
+						<Box position="absolute" bg="greyDark" radius={6} center p="xs" style={{ right: theme.space.xs }}>
+							<Text color="white" size="xs">
+								${shoppingCartStore.totalAmount}
+							</Text>
+						</Box>
+					</Box>
+				</TouchableOpacity>
 			</Box>
-		))
+		)
 	}
 
 	render() {
 		return (
-			<Box f={1} center>
+			<Box f={1}>
 				<StatusBar barStyle='dark-content' />
 				{this.renderList()}
+				{this,this.renderCheckoutBtn()}
 			</Box>
 		);
 	}

@@ -20,18 +20,18 @@ const primaryHeader = {
 	},
 };
 
-const ShoppingCartNavigator = createStackNavigator(
+const AuthNavigator = createStackNavigator(
 	{
-		ShoppingCart: {
-			getScreen: () => require("./ShoppingCartScreen").default,
-			navigationOptions: {
-				headerStyle: {
-					backgroundColor: theme.color.white,
-				}
-			}
-		}
+		Login: {
+			getScreen: () => require("./LoginScreen").default,
+		},
+	},
+	{
+		navigationOptions: {
+			header: null,
+		},
 	}
-)
+);
 
 const HomeStack = createStackNavigator(
 	{
@@ -66,18 +66,18 @@ const TabNavigator = createBottomTabNavigator(
 	}
 );
 
-const AuthNavigator = createStackNavigator(
+const ShoppingCartNavigator = createStackNavigator(
 	{
-		Login: {
-			getScreen: () => require("./LoginScreen").default,
-		},
-	},
-	{
-		navigationOptions: {
-			header: null,
-		},
+		ShoppingCart: {
+			getScreen: () => require("./ShoppingCartScreen").default,
+			navigationOptions: {
+				headerStyle: {
+					backgroundColor: theme.color.white,
+				}
+			}
+		}
 	}
-);
+)
 
 const MainNavigator = createStackNavigator(
 	{

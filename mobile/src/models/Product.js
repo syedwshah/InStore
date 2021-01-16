@@ -12,6 +12,9 @@ export const ProductModel = types.model('ProductModel', {
 }).views(self => ({
     get price() {
         return self.unityPrice.toFixed(2);
+    },
+    get totalPrice() {
+        return (self.cartQuantity * self.unityPrice).toFixed(2);
     }
 })).actions(self => ({
     incCartQty() {
