@@ -8,6 +8,7 @@ import React, { Component } from "react";
 import { NavigationService } from "../api/NavigationService";
 import { theme } from "../constants/theme";
 import TabBar from "../components/TabBar";
+import ShoppingCartIcon from "../components/ShoppingCartIcon";
 
 const primaryHeader = {
 	headerStyle: {
@@ -19,18 +20,18 @@ const primaryHeader = {
 	},
 };
 
-const AuthNavigator = createStackNavigator(
+const ShoppingCartNavigator = createStackNavigator(
 	{
-		Login: {
-			getScreen: () => require("./LoginScreen").default,
-		},
-	},
-	{
-		navigationOptions: {
-			header: null,
-		},
+		ShoppingCart: {
+			getScreen: () => require("./ShoppingCartScreen").default,
+			navigationOptions: {
+				headerStyle: {
+					backgroundColor: theme.color.white,
+				}
+			}
+		}
 	}
-);
+)
 
 const HomeStack = createStackNavigator(
 	{
@@ -42,9 +43,10 @@ const HomeStack = createStackNavigator(
 		},
 	},
 	{
-		navigationOptions: { ...primaryHeader },
+		navigationOptions: { ...primaryHeader, headerRight: <ShoppingCartIcon /> },
 	}
 );
+
 
 const TabNavigator = createBottomTabNavigator(
 	{
@@ -64,12 +66,23 @@ const TabNavigator = createBottomTabNavigator(
 	}
 );
 
+const AuthNavigator = createStackNavigator(
+	{
+		Login: {
+			getScreen: () => require("./LoginScreen").default,
+		},
+	},
+	{
+		navigationOptions: {
+			header: null,
+		},
+	}
+);
+
 const MainNavigator = createStackNavigator(
 	{
 		Tab: TabNavigator,
-		ShoppingCart: {
-			getScreen: () => require("./ShoppingCartScreen").default,
-		}
+		ShoppingCart: ShoppingCartNavigator,
 	},
 	{
 		navigationOptions: {

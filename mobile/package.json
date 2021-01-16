@@ -6,7 +6,7 @@
 		"ios": "expo start --ios",
 		"web": "expo start --web",
 		"eject": "expo eject",
-		"postinstall": "rndebugger-open"
+		"debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=19001' && expo start"
 	},
 	"dependencies": {
 		"@expo/vector-icons": "^10.0.6",

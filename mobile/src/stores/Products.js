@@ -4,4 +4,4 @@ import { ProductModel } from '../models/Product'
 
 export const ProductsStore = types.model('ProductsStore', {
     data: types.array(types.reference(ProductModel)),
-})
+});

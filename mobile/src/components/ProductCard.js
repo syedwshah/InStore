@@ -7,33 +7,37 @@ import {
 	Animated,
 } from "react-native";
 import { Box, Text } from "react-native-design-utility";
-import { productImgs } from "../constants/images";
+// import { productImgs } from "../constants/images";
 import { theme } from "../constants/theme";
 import { Feather } from "@expo/vector-icons";
+import { observer } from "mobx-react/native";
 
 const ANIM_DURATION = 200;
 
 const BoxAnimated = Animated.createAnimatedComponent(Box);
 
+@observer
 class ProductCard extends Component {
 	state = {
 		isHover: false,
-		quantity: 0,
 		cardOpacity: new Animated.Value(1),
 		quantityOpacity: new Animated.Value(0),
 	};
 
 	handlePlusPress = () => {
 		this.fadeIn();
-		this.setState({ isHover: true, quantity: this.state.quantity + 1 });
+		this.setState({ isHover: true });
+		if (this.props.product.cartQuantity === 0) {
+			this.props.product.addToCart();
+		}
 	};
 
 	handleIncrement = () => {
-		this.setState((s) => ({ quantity: s.quantity + 1 }));
+		this.props.product.incCartQty();
 	};
 
 	handleDecrement = () => {
-		this.setState((s) => ({ quantity: s.quantity - 1 }));
+		this.props.product.decCartQty();
 	};
 
 	handleClose = () => {
@@ -42,6 +46,12 @@ class ProductCard extends Component {
 			isHover: false,
 		});
 	};
+
+	handleRemove = () => {
+		this.handleClose();
+		this.props.product.removeFromCart();
+	}
+
 	fadeIn = () => {
 		Animated.parallel([
 			Animated.timing(this.state.quantityOpacity, {
@@ -68,7 +78,8 @@ class ProductCard extends Component {
 		]);
 	};
 	render() {
-		const { isHover, quantity, cardOpacity, quantityOpacity } = this.state;
+		const { isHover, cardOpacity, quantityOpacity } = this.state;
+		const { product } = this.props;
 		return (
 			<Box bg='white' w={150} p='sm' position='relative'>
 				<TouchableWithoutFeedback onPress={this.handleClose}>
@@ -77,18 +88,18 @@ class ProductCard extends Component {
 							<Image
 								style={styles.img}
 								resizeMode='contain'
-								source={productImgs.apple}
+								source={product.imageUrl}
 							/>
 						</Box>
 						<Box>
 							<Text left size='sm' bold>
-								$1.19 each
+								{product.price} each
 							</Text>
 							<Text left size='xs'>
-								Red Apple
+								{product.name}
 							</Text>
 							<Text left size='xs' color='greyLight'>
-								At $10.12/kg
+								At ${product.kgPrice.toFixed(2)}/kg
 							</Text>
 						</Box>
 					</BoxAnimated>
@@ -104,10 +115,10 @@ class ProductCard extends Component {
 								borderWidth: 1,
 							}}
 							center
-							bg={quantity > 0 ? "green" : "white"}>
-							{quantity > 0 ? (
+							bg={product.cartQuantity > 0 ? "green" : "white"}>
+							{product.cartQuantity > 0 ? (
 								<Text color='white' size='sm'>
-									{quantity}
+									{product.cartQuantity}
 								</Text>
 							) : (
 								<Feather name='plus' size={15} color={theme.color.green} />
@@ -124,16 +135,16 @@ class ProductCard extends Component {
 						radius={6}
 						o={quantityOpacity}>
 						<Box dir='row' align='center' justify='between' p='xs'>
-							{quantity > 1 ? (
+							{product.cartQuantity > 1 ? (
 								<TouchableOpacity onPress={this.handleDecrement}>
 									<Feather name='minus' color={theme.color.green} size={20} />
 								</TouchableOpacity>
 							) : (
-								<TouchableOpacity onPress={this.handleClose}>
+								<TouchableOpacity onPress={this.handleRemove}>
 									<Feather name='trash-2' color={theme.color.green} size={20} />
 								</TouchableOpacity>
 							)}
-							<Text>{quantity}</Text>
+							<Text>{product.cartQuantity}</Text>
 							<TouchableOpacity onPress={this.handleIncrement}>
 								<Feather name='plus' color={theme.color.green} size={20} />
 							</TouchableOpacity>
