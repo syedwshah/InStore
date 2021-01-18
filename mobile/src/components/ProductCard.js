@@ -7,10 +7,10 @@ import {
 	Animated,
 } from "react-native";
 import { Box, Text } from "react-native-design-utility";
-// import { productImgs } from "../constants/images";
 import { theme } from "../constants/theme";
 import { Feather } from "@expo/vector-icons";
 import { observer } from "mobx-react/native";
+import QuantityHover from "./QuantityHover";
 
 const ANIM_DURATION = 200;
 
@@ -21,7 +21,6 @@ class ProductCard extends Component {
 	state = {
 		isHover: false,
 		cardOpacity: new Animated.Value(1),
-		quantityOpacity: new Animated.Value(0),
 	};
 
 	handlePlusPress = () => {
@@ -53,32 +52,19 @@ class ProductCard extends Component {
 	}
 
 	fadeIn = () => {
-		Animated.parallel([
-			Animated.timing(this.state.quantityOpacity, {
-				toValue: 1,
-				duration: ANIM_DURATION,
-			}).start(),
-
-			Animated.timing(this.state.cardOpacity, {
-				toValue: 0.4,
-				duration: ANIM_DURATION,
-			}).start(),
-		]);
+		Animated.timing(this.state.cardOpacity, {
+			toValue: 0.4,
+			duration: ANIM_DURATION,
+		}).start();
 	};
 	fadeOut = () => {
-		Animated.parallel([
-			Animated.timing(this.state.quantityOpacity, {
-				toValue: 0,
-				duration: ANIM_DURATION,
-			}).start(),
-			Animated.timing(this.state.cardOpacity, {
-				toValue: 1,
-				duration: ANIM_DURATION,
-			}).start(),
-		]);
+		Animated.timing(this.state.cardOpacity, {
+			toValue: 1,
+			duration: ANIM_DURATION,
+		}).start();
 	};
 	render() {
-		const { isHover, cardOpacity, quantityOpacity } = this.state;
+		const { isHover, cardOpacity } = this.state;
 		const { product } = this.props;
 		return (
 			<Box bg='white' w={150} p='sm' position='relative'>
@@ -126,31 +112,13 @@ class ProductCard extends Component {
 						</Box>
 					</TouchableOpacity>
 				)}
-				{isHover && (
-					<BoxAnimated
-						shadow={0}
-						bg='offWhite'
-						position='absolute'
-						style={{ top: 10, right: 10, left: 10, zIndex: 99 }}
-						radius={6}
-						o={quantityOpacity}>
-						<Box dir='row' align='center' justify='between' p='xs'>
-							{product.cartQuantity > 1 ? (
-								<TouchableOpacity onPress={this.handleDecrement}>
-									<Feather name='minus' color={theme.color.green} size={20} />
-								</TouchableOpacity>
-							) : (
-								<TouchableOpacity onPress={this.handleRemove}>
-									<Feather name='trash-2' color={theme.color.green} size={20} />
-								</TouchableOpacity>
-							)}
-							<Text>{product.cartQuantity}</Text>
-							<TouchableOpacity onPress={this.handleIncrement}>
-								<Feather name='plus' color={theme.color.green} size={20} />
-							</TouchableOpacity>
-						</Box>
-					</BoxAnimated>
-				)}
+				{isHover && <QuantityHover 
+					quantity={product.cartQuantity}
+					handleRemove={this.handleRemove}
+					handleIncrement={this.handleIncrement}
+					handleDecrement={this.handleDecrement}
+					containerStyle={{ top: 10, right: 10, left: 10, zIndex: 99 }}
+				/>}
 			</Box>
 		);
 	}
