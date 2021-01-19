@@ -2,25 +2,29 @@ import { inject, observer } from "mobx-react/native";
 import React, { Component } from "react";
 import { FlatList, StatusBar, TouchableOpacity } from "react-native";
 import { Box, Text } from "react-native-design-utility";
+
 import CartItem from "../components/CartItem";
+import CloseBtn from "../commons/CloseBtn";
 import { theme } from "../constants/theme";
 
 @inject('shoppingCartStore')
 @observer
 class ShoppingCartScreen extends Component {
-	static navigationOptions = {
-		title: 'My Cart'
-	}
+	static navigationOptions = ({ navigation }) => ({
+		title: 'My Cart',
+		headerLeft: (
+			<CloseBtn left size={25} onPress={() => navigation.goBack(null)} />
+		)
+	})
+
 	state = {};
 
 	renderItem = ({ item }) => <CartItem product={item} />
 
 	keyExtractor = item => String(item.id);
 
-	renderList = () => {
-		const { shoppingCartStore } = this.props;
-
-		if (shoppingCartStore.totalProducts === 0) {
+	renderList = (shoppingCartStore) => {
+		if (shoppingCartStore.isEmpty) {
 			return (
 				<Box center f={1}>
 					<Text>Cart Empty</Text>
@@ -40,15 +44,13 @@ class ShoppingCartScreen extends Component {
 		/>
 	}
 
-	renderCheckoutBtn = () => {
-		const { shoppingCartStore } = this.props;
-
-		if (shoppingCartStore.totalProducts === 0) {
+	renderCheckoutBtn = (shoppingCartStore) => {
+		if (shoppingCartStore.isEmpty) {
 			return null;
 		}
 
 		return (
-			<Box bg="white" p="xs">
+			<Box bg="white" p="xs" >
 				<TouchableOpacity>
 					<Box h={45} bg="grey" center radius={6} position="relative">
 						<Text bold color="white">
@@ -67,11 +69,12 @@ class ShoppingCartScreen extends Component {
 	}
 
 	render() {
+		const { shoppingCartStore } = this.props;
 		return (
 			<Box f={1}>
 				<StatusBar barStyle='dark-content' />
-				{this.renderList()}
-				{this,this.renderCheckoutBtn()}
+				{this.renderList(shoppingCartStore)}
+				{this.renderCheckoutBtn(shoppingCartStore)}
 			</Box>
 		);
 	}

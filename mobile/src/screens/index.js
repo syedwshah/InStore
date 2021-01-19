@@ -33,6 +33,10 @@ const AuthNavigator = createStackNavigator(
 	}
 );
 
+/*The home screen will contain catergory cards, theforefore:
+HomeScreen contains CategoryCard components.*/
+/*The category screen will contain product cards, theforefore:
+CategoryScreen contains ProductCard components.*/
 const HomeStack = createStackNavigator(
 	{
 		Home: {

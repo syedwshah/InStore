@@ -9,15 +9,17 @@ class TabBar extends PureComponent {
 		const { routes, index } = navigation.state;
 
 		return (
-			<Box h={60} bg='white' dir='row' shadow={0}>
-				{routes.map((route, i) => (
-					<TabItem
-						navigation={navigation}
-						key={route.routeName}
-						{...route}
-						isActive={index === i}
-					/>
-				))}
+			<Box>
+				<Box h={70} bg='white' dir='row' shadow={0}>
+					{routes.map((route, i) => (
+						<TabItem
+							navigation={navigation}
+							key={route.routeName}
+							{...route}
+							isActive={index === i}
+						/>
+					))}
+				</Box>
 			</Box>
 		);
 	}

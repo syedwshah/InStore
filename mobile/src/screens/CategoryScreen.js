@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { Box } from "react-native-design-utility";
 import ProductCard from "../components/ProductCard";
 import { ScrollView } from 'react-native';
-import { productImgs } from "../constants/images";
 
 @inject('productsStore')
 class CategoryScreen extends Component {

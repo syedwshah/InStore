@@ -14,7 +14,7 @@ class TabItem extends PureComponent {
 		const icon = tabBarIcons[isActive ? "active" : "inactive"][routeName];
 
 		return (
-			<Box f={1} pt={10} center>
+			<Box f={1} pt={10} center p="xs">
 				<TouchableOpacity onPress={this.handlePress} style={styles.button}>
 					<Box mb={3}>
 						<Image source={icon} />

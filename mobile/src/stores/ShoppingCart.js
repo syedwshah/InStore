@@ -15,6 +15,9 @@ export const ShoppingCartStore = types.model('ShoppingCartStore', {
     },
     get productsList() {
         return self.products.slice();
+    },
+    get isEmpty() {
+        return self.products.length === 0;
     }
 }))
 .actions(self =>({
