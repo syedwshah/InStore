@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { StatusBar, FlatList } from "react-native";
-import { Box, Text } from "react-native-design-utility";
+import { Box } from "react-native-design-utility";
 
 import CategoryCard from "../components/CategoryCard";
 import DealCarousel from "../components/DealCarousel";
 import { theme } from "../constants/theme";
+import ProfileBtn from "../commons/ProfileBtn";
 
 const categories = [
 	{
@@ -33,7 +34,7 @@ const NUM_COLUMNS = 3;
 class HomeScreen extends Component {
 	static navigationOptions = {
 		title: "InStore",
-		gestureEnabled: false,
+		headerLeft: <ProfileBtn />
 	};
 
 	state = {};

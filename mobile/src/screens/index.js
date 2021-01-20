@@ -33,6 +33,37 @@ const AuthNavigator = createStackNavigator(
 	}
 );
 
+const ProfileStack = createStackNavigator(
+	{
+		Profile: {
+			getScreen: () => require('./ProfileScreen').default
+		},
+		Settings: {
+			getScreen: () => require('./SettingsScreen').default
+		}
+	},
+	{
+		navigationOptions: {
+			headerTitleStyle: {
+				fontWeight: "400",
+			},
+		}
+	}
+)
+
+const ShoppingCartNavigator = createStackNavigator(
+	{
+		ShoppingCart: {
+			getScreen: () => require("./ShoppingCartScreen").default,
+			navigationOptions: {
+				headerStyle: {
+					backgroundColor: theme.color.white,
+				}
+			}
+		}
+	}
+)
+
 /*The home screen will contain catergory cards, theforefore:
 HomeScreen contains CategoryCard components.*/
 /*The category screen will contain product cards, theforefore:
@@ -45,11 +76,33 @@ const HomeStack = createStackNavigator(
 		Category: {
 			getScreen: () => require("./CategoryScreen").default,
 		},
+		ShoppingCart: {
+			screen: ShoppingCartNavigator,
+			navigationOptions: {
+				//Remove the navigationOptions header from the parent Stack
+				header: null,
+			}
+		},
 	},
 	{
 		navigationOptions: { ...primaryHeader, headerRight: <ShoppingCartIcon /> },
 	}
 );
+
+HomeStack.navigationOptions = ({ navigation }) => {
+		let tabBarVisible = true;
+		
+		// Use this consoloe.log() for reference on how this works
+		console.log('navigation', navigation); 
+
+		if (
+			NavigationService.getCurrentRouteName(navigation.state) === 'ShoppingCart') 
+		{
+			tabBarVisible = false;
+		}
+
+		return {tabBarVisible};
+}
 
 
 const TabNavigator = createBottomTabNavigator(
@@ -70,25 +123,13 @@ const TabNavigator = createBottomTabNavigator(
 	}
 );
 
-const ShoppingCartNavigator = createStackNavigator(
-	{
-		ShoppingCart: {
-			getScreen: () => require("./ShoppingCartScreen").default,
-			navigationOptions: {
-				headerStyle: {
-					backgroundColor: theme.color.white,
-				}
-			}
-		}
-	}
-)
-
 const MainNavigator = createStackNavigator(
 	{
 		Tab: TabNavigator,
-		ShoppingCart: ShoppingCartNavigator,
+		Profile: ProfileStack,
 	},
 	{
+		mode: 'modal',
 		navigationOptions: {
 			header: null,
 		},

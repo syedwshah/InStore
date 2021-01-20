@@ -6,6 +6,7 @@ import { ScrollView } from 'react-native';
 
 @inject('productsStore')
 class CategoryScreen extends Component {
+	//Serialized params data expected to be obtained from CategoryCard components
 	static navigationOptions = ({ navigation }) => ({
 		title: navigation.getParam("name", "Instore"),
 	});
