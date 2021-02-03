@@ -1,4 +1,5 @@
 import { types } from "mobx-state-tree";
+import { UserAddressModel } from "./UserAddresses";
 
 //Create an interface for a CurrentUser
 export const CurrentUserModel = types.model("CurrentUserModel", {
@@ -6,4 +7,9 @@ export const CurrentUserModel = types.model("CurrentUserModel", {
 	firstName: types.string,
 	lastName: types.string,
 	avatarUrl: types.maybe(types.string),
-});
+	addresses: types.optional(types.array(UserAddressModel), []),
+}).views(self => ({
+	get addressesIsEmpty() {
+		return self.addresses.length === 0;
+	},
+}))

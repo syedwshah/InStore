@@ -47,7 +47,7 @@ class ProfileScreen extends Component {
 	static navigationOptions = ({ navigation }) => ({
 		title: "My Profile",
 		headerLeft: <CloseBtn left size={25} onPress={() => navigation.goBack(null)} />
-	})
+	});
 	
 	state = {};
 	render() {

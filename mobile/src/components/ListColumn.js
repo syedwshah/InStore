@@ -7,7 +7,7 @@ import { NavigationService } from "../api/NavigationService";
 
 // Compound Components
 const Left = ({ children }) => (
-    <Box f={1} align="start">
+    <Box f={2} align="start">
         {children}
     </Box>
 )

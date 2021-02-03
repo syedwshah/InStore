@@ -33,6 +33,17 @@ const AuthNavigator = createStackNavigator(
 	}
 );
 
+const modalHeader = {
+	headerBackTitle: null,
+	headerTintColor: theme.color.green,
+	headerStyle: {
+		backgroundColor: theme.color.white,
+	},
+	headerTitleStyle: {
+		color: theme.color.black,
+	}
+}
+
 const ProfileStack = createStackNavigator(
 	{
 		Profile: {
@@ -40,13 +51,27 @@ const ProfileStack = createStackNavigator(
 		},
 		Settings: {
 			getScreen: () => require('./SettingsScreen').default
+		},
+		Addresses: {
+			getScreen: () => require('./AddressesScreen').default
 		}
 	},
 	{
 		navigationOptions: {
-			headerTitleStyle: {
-				fontWeight: "400",
-			},
+			...modalHeader,
+		}
+	}
+)
+
+const AddressFormStack = createStackNavigator(
+	{
+		AddressForm: {
+			getScreen: () => require('./AddressFormScreen').default,
+		}
+	},
+	{
+		navigationOptions: {
+			...modalHeader,
 		}
 	}
 )
@@ -93,7 +118,7 @@ HomeStack.navigationOptions = ({ navigation }) => {
 		let tabBarVisible = true;
 		
 		// Use this consoloe.log() for reference on how this works
-		console.log('navigation', navigation); 
+		// console.log('navigation', navigation); 
 
 		if (
 			NavigationService.getCurrentRouteName(navigation.state) === 'ShoppingCart') 
@@ -127,6 +152,7 @@ const MainNavigator = createStackNavigator(
 	{
 		Tab: TabNavigator,
 		Profile: ProfileStack,
+		AddressForm: AddressFormStack,
 	},
 	{
 		mode: 'modal',
