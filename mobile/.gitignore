@@ -11,5 +11,7 @@ web-build/
 web-report/
 app.json
 
+env.js
+
 # macOS
 .DS_Store
