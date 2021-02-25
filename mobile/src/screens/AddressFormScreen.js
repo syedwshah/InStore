@@ -40,7 +40,9 @@ class AddressFormScreen extends Component {
         this.postalCode = address.postalCode;
         this.city = address.city;
 
-        this.address = address;
+        if (this.postalCode && this.city) {
+            this.address = address;
+        }
     }
 
     @action.bound

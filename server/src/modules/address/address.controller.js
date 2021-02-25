@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-import { createAddress } from "./address";
+import { createAddress, getUserAddresses } from "./address";
 
 export const create = async (req, res) => {
     const { data } = req.body;
@@ -32,3 +32,14 @@ export const create = async (req, res) => {
         res.status(400).json({ message: error.message })
     }
 };
+
+export const userAddress = async (req, res) => {
+    try {
+        const addresses = await getUserAddresses(req.user._id);
+
+        res.status(200).json({ addresses });
+    } catch (error) {
+        console.log('error', error);
+        throw error;
+    }
+}

@@ -28,22 +28,31 @@ export const CurrentUserModel = types.model("CurrentUserModel", {
 			const res = yield baseApi
 				.url('/addresses')
 				.auth(`Bearer ${self.auth.authToken}`)
-				.post({data}).json();
+				.post({ data }).json();
 
-				if (typeof res.address === 'object') {
-					const address = UserAddressModel.create({
-						...res.address,
-						geo: {
-							lng: get(res.address, ['geo', 'coords', 0]),
-							lat: get(res.address, ['geo', 'coords', 1]),
-						}
-					});
-
-					// self.addresses.push(address);
-					self.pushAddress(address)
+				if (res.address) {
+					self.pushAddress(res.address)
 				}
 		} catch (error) {
 			throw error
 		}
 	}),
+	getAddress: flow(function*(data) {
+		yield self.addresses = data;
+	}),
+	getAddresses: flow(function*() {
+		try {
+			const res = yield baseApi
+				.url('/addresses')
+				.auth(`Bearer ${self.auth.authToken}`)
+				.get().json();
+
+				console.log('res', res);
+				if (Array.isArray(res.addresses)) {
+					self.getAddress(res.addresses);
+				}
+		} catch (error) {
+			throw error;
+		}
+	})
 }))

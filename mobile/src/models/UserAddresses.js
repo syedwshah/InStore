@@ -1,4 +1,5 @@
 import { types } from "mobx-state-tree";
+import get from 'lodash.get';
 
 export const UserAddressModel = types.model({
     _id: types.identifier,
@@ -12,4 +13,10 @@ export const UserAddressModel = types.model({
         lng: types.number,
         lat: types.number,
     })
-});
+}).preProcessSnapshot(snap => ({
+    ...snap,
+    geo: {
+        lng: get(snap, ['geo', 'coords', 0]),
+        lat: get(snap, ['geo', 'coords', 1]),
+    }
+}))
