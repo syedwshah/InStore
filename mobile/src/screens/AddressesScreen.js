@@ -8,6 +8,7 @@ import { observable, action, when } from "mobx";
 import { theme } from "../constants/theme";
 import Button from "../commons/Button";
 import HeaderBtn from "../commons/HeaderBtn";
+import AddressListItem from "../components/AddressListItem";
 
 @inject('authStore')
 @observer
@@ -61,7 +62,7 @@ class AddressesScreen extends Component {
     }
     
     handleAddAddressPress = () => {
-        this.props.navigation.navigate('AddressForm')
+        this.props.navigation.navigate('CreateAddress')
     };
 
     renderIfEmpty = () => (
@@ -84,7 +85,7 @@ class AddressesScreen extends Component {
         </Box>
     )
 	render() {
-        if (this.isLoading) {
+        if (this.isLoading && this.props.authStore.info.addressesIsEmpty) {
             return (
                 <Box f={1} center bg="white">
                     <ActivityIndicator color={theme.color.green} size="large"/>
@@ -96,12 +97,10 @@ class AddressesScreen extends Component {
             return this.renderIfEmpty();
         }
 		return (
-			<Box f={1} center bg='white' px='md'>
+			<Box f={1} bg='white'>
                 <StatusBar barStyle='dark-content' />
                 {this.props.authStore.info.addresses.map(address => (
-                    <Box key={address._id}>
-                        <Text>{address.street}</Text>
-                    </Box>
+                    <AddressListItem key={address._id} address={address} />
                 ))}
             </Box>
 		);

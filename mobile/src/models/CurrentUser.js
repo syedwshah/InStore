@@ -1,7 +1,5 @@
-import { flow } from "mobx";
-import get from 'lodash.get';
+import { types, flow, getParent, destroy } from 'mobx-state-tree';
 
-import { getParent, types } from "mobx-state-tree";
 import { baseApi } from "../api/Api";
 import { UserAddressModel } from "./UserAddresses";
 
@@ -20,9 +18,6 @@ export const CurrentUserModel = types.model("CurrentUserModel", {
 		return getParent(self);
 	},
 })).actions(self => ({
-	pushAddress: flow(function*(data) {
-		yield self.addresses.push(data);
-	}),
 	createAddress: flow(function*(data) {
 		try {
 			const res = yield baseApi
@@ -30,29 +25,31 @@ export const CurrentUserModel = types.model("CurrentUserModel", {
 				.auth(`Bearer ${self.auth.authToken}`)
 				.post({ data }).json();
 
-				if (res.address) {
-					self.pushAddress(res.address)
-				}
+			if (res.address) {
+				self.addresses.push(res.address);
+			}
 		} catch (error) {
-			throw error
+			throw error;
 		}
 	}),
-	getAddress: flow(function*(data) {
-		yield self.addresses = data;
-	}),
+
 	getAddresses: flow(function*() {
 		try {
 			const res = yield baseApi
 				.url('/addresses')
 				.auth(`Bearer ${self.auth.authToken}`)
-				.get().json();
+				.get()
+				.json();
 
-				console.log('res', res);
-				if (Array.isArray(res.addresses)) {
-					self.getAddress(res.addresses);
-				}
+			if (Array.isArray(res.addresses)) {
+				self.addresses = res.addresses;
+			}
 		} catch (error) {
 			throw error;
 		}
-	})
+	}),
+	
+	removeAddress(address) {
+		destroy(address);
+	}
 }))

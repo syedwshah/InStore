@@ -25,7 +25,9 @@ export const buildAddress = (address) => address.address_components.reduce((acc,
         acc.postalCode = value;
     }
 
-    if (current.types.includes("sublocality_level_1")) {
+    if (current.types.some(e => (
+        e === 'locality' || e == 'sublocality_level_1'
+    ))) {
         acc.city = value;
     }
 

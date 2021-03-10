@@ -9,6 +9,7 @@ class LocationItem extends Component {
     handlePress = async () => {
         try {
             const res = await this.props.fetchDetails(this.props.place_id);
+            // console.log('res', res);
 
             this.props.searchAddress(res);
         } catch (error) {
