@@ -40,6 +40,13 @@ export const AuthStore = types
 				console.log("error", error);
 			}
 		}),
+		destroyToken: flow(function* () {
+			try {
+				yield AsyncStorage.removeItem(TOKEN_KEY);
+			} catch (error) {
+				console.log("error", error);
+			}
+		}),
 		login: flow(function* (providerToken, provider) {
 			try {
 				const res = yield customersApi
@@ -53,6 +60,16 @@ export const AuthStore = types
 					self.authToken = res.token;
 					yield self.saveToken(res.token);
 					yield self.getUserInfo();
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		}),
+		logout: flow(function* () {
+			try {
+				if (self.authToken) {
+					yield self.destroyToken();
+					self.authToken = undefined;
 				}
 			} catch (error) {
 				console.log(error);

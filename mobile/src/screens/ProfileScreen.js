@@ -50,6 +50,13 @@ class ProfileScreen extends Component {
 	});
 	
 	state = {};
+
+	logout = async () => {
+		await this.props.authStore.logout();
+
+		NavigationService.navigate('Splash');
+	}
+
 	render() {
 		const { authStore } = this.props;
 		return (
@@ -88,7 +95,7 @@ class ProfileScreen extends Component {
 						</ListColumn>
 					))}
 
-					<TouchableOpacity style={styles.logoutBtn}>
+					<TouchableOpacity style={styles.logoutBtn} onPress={this.logout}>
 						<Text bold color='green'>
 							Log out
 						</Text>
