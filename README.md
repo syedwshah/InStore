@@ -24,8 +24,8 @@ The following features are left to be resolved:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='misc/walkthrough.gif' title='Video Walkthrough'alt='Video Walkthrough' />
+<img src='misc/walkthrough.gif' title='Main Walkthrough' alt='Core Walkthrough' />
 
 Here's a walkthrough of slightly less interesting functionality:
 
-<img src='misc/less_interesting.gif' title='Video Walkthrough'alt='Video Walkthrough' />
+<img src='./misc/less_interesting.gif' title='Sub Walkthrough' alt='Outer Walkthrough' />
