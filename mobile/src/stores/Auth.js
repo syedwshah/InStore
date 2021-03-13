@@ -70,6 +70,7 @@ export const AuthStore = types
 				if (self.authToken) {
 					yield self.destroyToken();
 					self.authToken = undefined;
+					self.info = undefined;
 				}
 			} catch (error) {
 				console.log(error);

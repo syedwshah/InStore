@@ -1,3 +1,4 @@
+import { flow } from 'mobx';
 import { types } from 'mobx-state-tree'
 import { ProductModel } from '../models/Product'
 
@@ -30,5 +31,17 @@ export const ShoppingCartStore = types.model('ShoppingCartStore', {
     },
     removeProduct(product) {
         self.products = self.products.filter(el => (el.id !== product.id))
-    }
+    },
+    emptyCart: flow(function*() {
+        if (!self.isEmpty) {
+            self.products = undefined;
+        }
+    }),
+    logout: flow(function* () {
+        try {
+            yield self.emptyCart();
+        } catch (error) {
+            console.log(error);
+        }
+    }),
 }))

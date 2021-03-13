@@ -43,6 +43,8 @@ const LINKS = [
 ];
 
 @inject('authStore')
+@inject("shoppingCartStore")
+@inject("productsStore")
 class ProfileScreen extends Component {
 	static navigationOptions = ({ navigation }) => ({
 		title: "My Profile",
@@ -53,6 +55,8 @@ class ProfileScreen extends Component {
 
 	logout = async () => {
 		await this.props.authStore.logout();
+		await this.props.shoppingCartStore.logout();
+		await this.props.productsStore.logout();
 
 		NavigationService.navigate('Splash');
 	}
