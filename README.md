@@ -24,12 +24,15 @@ The following functionality is completed and depicted in the Walkthrough:
 
 The following features are left to be resolved:
 
-- [ ] Logging out of the app should 'reset' the stores, possible using MobX-State-Tree snapshots
+- [x] Logging out of the app should 'reset' the stores
 - [ ] App state should be managed consistently. Current app has local state managed by React state management techniques as well as MobX decorators
 - [ ] Testing can be implemented to make debugging easier
 - [ ] EditAddressScreen does not edit delivery options or apt on the front end, may possible update aforementioned data on the back end
 - [ ] The JWT never goes out of scope, except on log out, it should expire after an elapsed timeframe
 - [ ] Update Walkthrough (below) to depict changes not yet depicted
+
+The following could be improved:
+- [ ] Logging out of the app should 'reset' the stores using MobX-State-Tree snapshots
 
 Nice to have or look more into for either this project or a future project:
 - [ ] Type checking using **TypeScript**
