@@ -13,7 +13,7 @@ export const ProductsStore = types.model('ProductsStore', {
     logout: flow(function* () {
         try {
             if (!self.isEmpty) {
-                self.data.map(item => {
+                self.data.forEach(item => {
                     item.removeFromCart();
                 })
             }

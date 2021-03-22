@@ -85,7 +85,10 @@ export const AuthStore = types
 						.get()
 						.json();
 
-					self.info = res;
+					// self.info = res;
+					if (!self.info) {
+						self.info = res;
+					}
 
 					NavigationService.navigate("Main");
 				}

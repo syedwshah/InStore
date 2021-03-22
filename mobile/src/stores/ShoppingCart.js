@@ -1,5 +1,4 @@
-import { flow } from 'mobx';
-import { types } from 'mobx-state-tree'
+import { flow, types } from 'mobx-state-tree'
 import { ProductModel } from '../models/Product'
 
 export const ShoppingCartStore = types.model('ShoppingCartStore', {
@@ -34,7 +33,7 @@ export const ShoppingCartStore = types.model('ShoppingCartStore', {
     },
     emptyCart: flow(function*() {
         if (!self.isEmpty) {
-            self.products = undefined;
+            self.products.splice(0, self.totalProducts);
         }
     }),
     logout: flow(function* () {
