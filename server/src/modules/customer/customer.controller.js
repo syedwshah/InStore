@@ -21,10 +21,10 @@ export const create = async (req, res) => {
 		//Request user data via API calls to respective provider
 		if (provider === "FACEBOOK") {
 			data = await AuthProvider.Facebook.authAsync(token);
-			console.log(data);
+			// console.log(data);
 		} else if (provider === "GOOGLE") {
 			data = await AuthProvider.Google.authAsync(token);
-			console.log(data);
+			// console.log(data);
 		} else {
 			res.sendStatus(400);
 		}

@@ -4,6 +4,7 @@ const JWT_SECRET = "helloworld";
 
 const JWT_OPTS = {
 	issuer: "InStore",
+	expiresIn: '1h',
 };
 
 const createToken = (user) => {

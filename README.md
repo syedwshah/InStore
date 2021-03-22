@@ -28,13 +28,17 @@ The following features are left to be resolved:
 - [ ] App state should be managed consistently. Current app has local state managed by React state management techniques as well as MobX decorators
 - [ ] Testing can be implemented to make debugging easier
 - [ ] EditAddressScreen does not edit delivery options or apt on the front end, may possible update aforementioned data on the back end
-- [ ] The JWT never goes out of scope, except on log out, it should expire after an elapsed timeframe
+- [x] The JWT should expire after an elapsed timeframe as well as on logout
 - [ ] Update Walkthrough (below) to depict changes not yet depicted
 
 The following could be improved:
+
 - [ ] Logging out of the app should 'reset' the stores using MobX-State-Tree snapshots
+- [ ] Although the JWT expires after an elapsed timeframe, the global state has yet to update based on that change.
+      One solution may be to check in middleware for this change using "mst-middlewares" library.
 
 Nice to have or look more into for either this project or a future project:
+
 - [ ] Type checking using **TypeScript**
 - [ ] **GraphQL with Apollo**
 - [ ] **Stripe API**
@@ -42,7 +46,6 @@ Nice to have or look more into for either this project or a future project:
 - [ ] Rebuild the app as a Bare app, it is currently a Managed Expo build
 - [ ] Possbily move the Server side from **SaaS** to **AWS**
 - [ ] Create an option for native Light/Dark theme modes
-- [ ] 
 
 ## Video Walkthrough
 
